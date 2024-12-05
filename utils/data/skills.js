@@ -18,13 +18,17 @@ export const skillsData = [
   'Python',
   'Canva',
   'Photoshop',
-  'Ubuntu'
+  'Ubuntu',
+  'Sketch',
+  // 'Canva',
+  'Adobe Audition'
+
 
 
 
 
   // 'Firebase',
-  // 'MaterialUI',
+  //  'MaterialUI',
   // 'Nginx',
   // 'Strapi'
 ]
