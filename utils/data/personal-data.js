@@ -15,5 +15,5 @@ export const personalData = {
   leetcode: "",
   devUsername: "tusharnama24",
   resume:
-    "https://drive.google.com/file/d/1ylHgSPvlR3C4Jl1v9uiRX6T3V6tOR4Ke/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1ylHgSPvlR3C4Jl1v9uiRX6T3V6tOR4Ke/view?usp=sharing",
 };
