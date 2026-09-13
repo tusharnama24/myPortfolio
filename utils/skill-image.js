@@ -226,6 +226,6 @@ export const skillsImage = (skill) => {
     case 'canva':
       return canva;
     default:
-      break;
+      return null;
   }
 }

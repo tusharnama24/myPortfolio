@@ -15,7 +15,6 @@ export const skillsData = [
   'Figma',
   'Canva',
   'Photoshop',
-  'Ubuntu',
   'Firebase',
   'Flutter',
   'dart',
@@ -79,7 +78,6 @@ export const skillsData = [
   Git
   Figma
   Canva
-  Ubuntu
   Bootstrap
   MongoDB
   Tailwind
