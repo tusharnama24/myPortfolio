@@ -1,14 +1,35 @@
 "use client";
 
-export default function Header() {
-  const hour = new Date().getHours();
+import { useEffect, useState } from "react";
 
-  const greeting =
-    hour < 12
-      ? "Good Morning"
-      : hour < 18
-      ? "Good Afternoon"
-      : "Good Evening";
+export default function Header() {
+  const [greeting, setGreeting] = useState("Good Evening");
+  const [today, setToday] = useState("");
+
+  useEffect(() => {
+    const updateDateTime = () => {
+      const now = new Date();
+      const hour = now.getHours();
+
+      const currentGreeting =
+        hour < 12
+          ? "Good Morning"
+          : hour < 18
+          ? "Good Afternoon"
+          : "Good Evening";
+
+      const currentDate = now.toLocaleDateString("en-IN", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+
+      setGreeting(currentGreeting);
+      setToday(currentDate);
+    };
+
+    updateDateTime();
+  }, []);
 
   return (
     <header className="rounded-2xl border border-[#1f2937] bg-[#111827] p-5 sm:p-6">
@@ -29,11 +50,7 @@ export default function Header() {
           </p>
 
           <p className="mt-1 text-sm font-semibold text-[#16f2b3]">
-            {new Date().toLocaleDateString("en-IN", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })}
+            {today || "Loading..."}
           </p>
         </div>
       </div>
