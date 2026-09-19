@@ -9,10 +9,9 @@ export async function middleware(request) {
     secret: process.env.NEXTAUTH_SECRET,
   });
 
-  // Allow the login page without authentication
+  // Allow login page
   if (pathname === "/admin/login") {
-    // If already logged in, send user to admin dashboard
-    if (token) {
+    if (token?.role === "admin") {
       return NextResponse.redirect(
         new URL("/admin", request.url)
       );
@@ -21,11 +20,18 @@ export async function middleware(request) {
     return NextResponse.next();
   }
 
-  // Protect all other /admin routes
+  // Protect admin routes
   if (pathname.startsWith("/admin")) {
     if (!token) {
       return NextResponse.redirect(
         new URL("/admin/login", request.url)
+      );
+    }
+
+    // Only admins can access admin pages
+    if (token.role !== "admin") {
+      return NextResponse.redirect(
+        new URL("/", request.url)
       );
     }
   }
