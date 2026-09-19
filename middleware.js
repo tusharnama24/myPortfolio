@@ -1,43 +1,40 @@
-import { getToken } from "next-auth/jwt";
-import { NextResponse } from "next/server";
+import NextAuth from "next-auth";
+import { authConfig } from "./auth.config";
 
-export async function middleware(request) {
+const { auth } = NextAuth(authConfig);
+
+export default auth((request) => {
   const { pathname } = request.nextUrl;
+  const user = request.auth?.user;
 
-  const token = await getToken({
-    req: request,
-    secret: process.env.NEXTAUTH_SECRET,
-  });
-
-  // Allow login page
+  // Allow the login page
   if (pathname === "/admin/login") {
-    if (token?.role === "admin") {
-      return NextResponse.redirect(
+    if (user?.role === "admin") {
+      return Response.redirect(
         new URL("/admin", request.url)
       );
     }
 
-    return NextResponse.next();
+    return;
   }
 
   // Protect admin routes
   if (pathname.startsWith("/admin")) {
-    if (!token) {
-      return NextResponse.redirect(
+    if (!user) {
+      return Response.redirect(
         new URL("/admin/login", request.url)
       );
     }
 
-    // Only admins can access admin pages
-    if (token.role !== "admin") {
-      return NextResponse.redirect(
+    if (user.role !== "admin") {
+      return Response.redirect(
         new URL("/", request.url)
       );
     }
   }
 
-  return NextResponse.next();
-}
+  return;
+});
 
 export const config = {
   matcher: ["/admin/:path*"],
